@@ -1,0 +1,6 @@
+const CACHE='travel-saved-entry-v1',FILES=['/saved/index.html','/saved/reader.js','/saved/style.css'];
+async function prepare(){const cache=await caches.open(CACHE);for(const path of FILES){const response=await fetch(path,{cache:'reload'});if(!response.ok)throw Error('entry unavailable');await cache.put(path,response);}return true;}
+self.addEventListener('install',event=>event.waitUntil(prepare().then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('travel-saved-entry-')&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));
+self.addEventListener('message',event=>{if(event.data?.type==='prepare-saved-entry')event.waitUntil(prepare().then(()=>event.ports[0]?.postMessage({ok:true})).catch(()=>event.ports[0]?.postMessage({ok:false})));});
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin||!FILES.includes(url.pathname))return;event.respondWith((async()=>{try{const response=await fetch(event.request);if(response.ok)return response;}catch{}const cached=await caches.match(url.pathname,{cacheName:CACHE});return cached||new Response('离线入口尚未缓存，请先连接服务打开并保存方案。',{status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}});})());});
