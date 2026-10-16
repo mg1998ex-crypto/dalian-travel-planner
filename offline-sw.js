@@ -1,4 +1,5 @@
-const CACHE='travel-saved-entry-v1',FILES=['/saved/index.html','/saved/reader.js','/saved/style.css'];
+const BASE=new URL('.',self.location.href).pathname;
+const CACHE='travel-saved-entry-v1',FILES=['saved/index.html','saved/reader.js','saved/style.css'].map(path=>BASE+path);
 async function prepare(){const cache=await caches.open(CACHE);for(const path of FILES){const response=await fetch(path,{cache:'reload'});if(!response.ok)throw Error('entry unavailable');await cache.put(path,response);}return true;}
 self.addEventListener('install',event=>event.waitUntil(prepare().then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('travel-saved-entry-')&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));
