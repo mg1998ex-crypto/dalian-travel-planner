@@ -1,4 +1,4 @@
-# 国旅旅行规划师 · 网站 0.3.1
+# 国旅旅行规划师 · 网站 0.3.2
 
 固定网址：https://mg1998ex-crypto.github.io/dalian-travel-planner/
 
@@ -6,6 +6,8 @@
 
 历史资料中的价格、团期、购物属性及服务适用条件不作为现行在售承诺。康养为2021年历史资料。
 
-安卓下载仍提供原版本0.2.3；此次只更新网站，未修改APP。
+安卓下载已更新为0.4.0，36.23 MB，同签名可覆盖旧版。APP内置24条8类线路、167天原行程、62张图片及无需联网的固定话术客服。基础浏览、匹配、保存和文字分享不依赖个人电脑；可选自有AI及语音服务需要另接后台。
+
+下载APK：https://github.com/mg1998ex-crypto/dalian-travel-planner/releases/download/v0.4.0/travel-planner-0.4.0.apk
 
 本仓库仅含静态网站文件，无私钥、客户资料或原始完整资料库。由GitHub Pages从main根目录持续托管。
